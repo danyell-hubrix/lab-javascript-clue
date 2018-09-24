@@ -86,8 +86,8 @@ name: Patio
 
 
 // Characters Collection
-var charactersArray = {
-    'MrGreen': {
+var charactersArray = [
+    {
         first_name:   "Jacob",
         last_name:    "Green",
         color:        "green",
@@ -96,7 +96,7 @@ var charactersArray = {
         image:        "https://pbs.twimg.com/profile_images/506787499331428352/65jTv2uC.jpeg",
         occupation:   "Entrepreneur"
         }
-    , 'drOrchid': {
+    , {
         frst_name:   'Doctor',
         lst_name:    'Orchid',
         color:        'white',
@@ -105,7 +105,7 @@ var charactersArray = {
         image:        'http://www.radiotimes.com/uploads/images/Original/111967.jpg',
         ocupation:   'Scientist'
     }
-    , 'ProfPlum': {
+    , {
         first_name:  "Victor",
         last_name:   "Plum",
         color:       "purple",
@@ -114,7 +114,7 @@ var charactersArray = {
         image:       "https://metrouk2.files.wordpress.com/2016/07/professor-plum.jpg",
         occupation:  "Designer"
     }
-    , 'missScarlet': {
+    , {
         first_name:  "Kasandra",
         last_name:   "Scarlet",
         color:       "red",
@@ -123,7 +123,7 @@ var charactersArray = {
         image:       "https://metrouk2.files.wordpress.com/2016/07/miss-scarlett.jpg",
         occupation:  "Actor"
     }
-};
+];
 
 // Rooms' Collection
 var weaponsArray = [
@@ -159,31 +159,27 @@ var roomsArray = [
 
 function randomSelector(sourceArray) {
     if (typeof(sourceArray) != 'object') return undefined;
-    var numberOfKeys = sourceArray.length;
-    if (0 == numberOfKeys) return undefined;
     var keysArr = Object.keys(sourceArray);
+    var numberOfKeys = keysArr.length;
+    if (0 == numberOfKeys) return undefined;
     var rndIndx = Math.floor(Math.random() * numberOfKeys);
-    return sourceArray[keysArr[rndIndx]];
+    var randomKey = keysArr[rndIndx];
+    return sourceArray[randomKey];
 }
 
 function pickMistery() {
-    var nastyPerson = randomSelector(charactersArray);
-    var weapon = randomSelector(weaponsArray);
-    var location = randomSelector(roomsArray);
-    var responseArray = [
-        { first_name: nastyPerson.first_name, last_name: nastyPerson.last_name },
-        { name: weapon.name },
-        { name: location.name }
-        ];
-    return responseArray;
+    return [
+        randomSelector(charactersArray),
+        randomSelector(weaponsArray),
+        randomSelector(roomsArray)
+    ];
 }
 
 function revealMistery(mistyEnvelope) {
-    return
-        mistyEnvelope[0].first_name + " "
-        + mistyEnvelope[0].last_name +
-        " killed Mr.Boddy using the " +
-        mistyEnvelope[1].name +" in the "
-        + mistyEnvelope[2].name + "!!!!"
-    ;
+    var ret = mistyEnvelope[0].first_name + " "
+    + mistyEnvelope[0].last_name
+    + " killed Mr.Boddy using the "
+    + mistyEnvelope[1].name + " in the "
+    + mistyEnvelope[2].name + "!!!!";
+    return ret ;
 }
